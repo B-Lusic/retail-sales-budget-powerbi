@@ -1,0 +1,24 @@
+# Power BI Auto-Recovery & Temporary Files
+*.tmp
+*.log
+*.pbit.data
+*.abf
+*.mdmp
+*.xmla
+*.bak
+*.pbix.auto
+*.pbi/
+
+# Exclude raw data files & bulk extracts
+data/raw/*
+!data/raw/.gitkeep
+*.csv
+*.xlsx
+*.xls
+*.parquet
+*.zip
+
+# System Junk
+.DS_Store
+Thumbs.db
+Desktop.ini
