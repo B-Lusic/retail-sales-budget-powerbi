@@ -1,0 +1,47 @@
+// ================================================
+// PROJECT: Global Retail Sales & Budget Dashboard
+// FILE: dax_measures.dax
+// AUTHOR: Ben Lusic
+// ================================================
+
+// 1. Total Sales Revenue
+Total Sales = 
+SUM(FactSales[SalesAmount])
+
+// 2. Total Budget Target
+Total Budget = 
+SUM(FactBudget[BudgetAmount])
+
+// 3. Sales vs. Budget Variance ($)
+Sales Variance $ = 
+[Total Sales] - [Total Budget]
+
+// 4. Sales vs. Budget Variance (%)
+Sales Variance % = 
+DIVIDE(
+    [Sales Variance $],
+    [Total Budget],
+    0
+)
+
+// 5. Total Quantity Sold
+Total Units Sold = 
+SUM(FactSales[OrderQuantity])
+
+// 6. Average Order Value (AOV)
+Average Order Value = 
+DIVIDE(
+    [Total Sales],
+    DISTINCTCOUNT(FactSales[SalesOrderNumber]),
+    0
+)
+
+// 7. YTD Sales Performance
+YTD Sales = 
+TOTALYTD([Total Sales], DimDate[Date])
+
+// 8. YoY Sales Growth (%)
+YoY Sales Growth % = 
+VAR PriorYearSales = CALCULATE([Total Sales], SAMEPERIODLASTYEAR(DimDate[Date]))
+RETURN
+DIVIDE([Total Sales] - PriorYearSales, PriorYearSales, 0)
